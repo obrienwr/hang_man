@@ -29,6 +29,10 @@ class HangMan:
 		pass
 
 if __name__ == '__main__':
+	# Whenever you want to add changes to the repository, type 
+	# `git add .` 
+	# `git commit -m "some message"`
+	# `git push -u origin main`
 	man = HangMan()
 	man.give_hint()
 	
