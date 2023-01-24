@@ -1,28 +1,34 @@
-from typing import List
+from typing import List, Optional
 
 
 class HangMan:
 
-	def __init__(num_words: Optional[int] = -1):
+	def __init__(self, num_words: Optional[int] = -1):
 		pass
 
-	def get_phrase() -> str:
+	def get_phrase(self) -> str:
 		pass
 
-	def find_idx_of(phrase, letter) -> List[str]:
+	def find_idx_of(self, phrase, letter) -> List[str]:
 		pass
 
-	def draw_man():
+	def draw_man(self):
 		pass
 
-	def give_hint():
+	def give_hint(self):
+		print("no")
 		pass
 
-	def guess_phrase(guess: str) -> bool:
+	def guess_phrase(self, guess: str) -> bool:
 		pass
 
-	def add_to_graveyard(letter):
+	def add_to_graveyard(self, letter):
 		pass
 
-	def win():
+	def win(self):
 		pass
+
+if __name__ == '__main__':
+	man = HangMan()
+	man.give_hint()
+	
