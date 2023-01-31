@@ -53,6 +53,7 @@ class HangMan:
 		by the player and subtracts one from the total number of hints left. 
 		"""
 		if self._hints_left > 0:
+			self._hints_left -= 1
 			return random.choice(self._unfound_letters)
 		else:
 			return ">:("
