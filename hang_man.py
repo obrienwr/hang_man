@@ -10,7 +10,10 @@ class HangMan:
 		self._hints_left = 3
 		self._found_letters = []
 		self._unfound_letters = list(set(self._phrase))
-		del self._unfound_letters[self._unfound_letters.index(' ')] 
+		if ' ' in self._unfound_letters:
+			del self._unfound_letters[self._unfound_letters.index(' ')] 
+		if '\n' in self._unfound_letters:
+			del self._unfound_letters[self._unfound_letters.index('\n')]
 
 	@staticmethod
 	def build_phrase():
@@ -19,7 +22,10 @@ class HangMan:
 		random idiom. 
 		"""
 		# testing purposes,,,,
-		return "zoo wee mama"
+		idioms = []
+		with open('idioms.txt', 'r') as idioms_file:
+			idioms = idioms_file.readlines()
+		return random.choice(idioms)
 
 	def get_phrase(self) -> str:
 		return self._phrase
