@@ -1,9 +1,16 @@
 import PySimpleGUI as sg
 
 # All the stuff inside your window.
-layout = [  [sg.Text('Some text on Row 1')],
-            [sg.Text('Enter something on Row 2'), sg.InputText()],
+
+pictures = ['./pic.png']
+blanks = ""
+graveyard = "sample text"
+
+
+layout = [ [ [sg.Image(pictures[0])], [sg.Text(blanks)]], [sg.Text(graveyard), sg.InputText()],
             [sg.Button('Ok'), sg.Button('Cancel')] ]
+
+#layout2 = [[sg.Image(r'./pic.png')]]
 
 # Create the Window
 window = sg.Window('Window Title', layout)
@@ -12,6 +19,10 @@ while True:
     event, values = window.read()
     if event == sg.WIN_CLOSED or event == 'Cancel': # if user closes window or clicks cancel
         break
-    print('You entered ', values[0])
+    print('You entered ', values[1])
+    if event == 'Ok':
+        graveyard += values[1]
+        layout[1][1] = sg.Text(graveyard)
+        window.Refresh()
 
 window.close()
