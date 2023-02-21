@@ -5,10 +5,11 @@ from hang_man import HangMan
 class gui:
 
     def __init__(self) -> None:
-        self.pictures = ['./pic.png']
+        self.pictures = ['images/pic.png','images/pic1.png','images/pic2.png','images/pic3.png','images/pic4.png','images/pic5.png','images/pic6.png',]
+        self.index = 0
         self.man = HangMan()
         self.graveyard = self.man._graveyard
-        self.layout = [ [ [sg.Image(self.pictures[0])], [sg.Text("Phrase: " + ' '.join(self.man.get_phrase()))]], [sg.Text('Your incorrect guesses are: ' + ' '.join(self.graveyard) + "\n\n"), sg.InputText()],
+        self.layout = [ [ [sg.Image(self.pictures[self.index], key = 'pics')], [sg.Text("Phrase: " + ' '.join(self.man.get_phrase()))]], [sg.Text(('Your incorrect guesses are: ' + ' '.join(self.graveyard) + "\n\n"), key='-OUTPUT-'), sg.InputText(key='-IN-')],
                 [sg.Button('Ok'), sg.Button('Cancel')] ]
 
     def open_window(self):
@@ -23,8 +24,14 @@ class gui:
             event, values = window.read()
             if event == sg.WIN_CLOSED or event == 'Cancel': # if user closes window or clicks cancel
                 break
-            self.graveyard += values[1]
-            self.layout[1][0] = sg.Text('Your incorrect guesses are: ' + ' '.join(self.graveyard))
+            self.graveyard += values["-IN-"]
+            string = 'Your incorrect guesses are: \n' + ', '.join(self.graveyard)
+            
+            if event == 'Ok':
+                window['-OUTPUT-'].update(string)
+                self.index = (self.index + 1) % 7
+                window['pics'].update(self.pictures[self.index])
+
             #window['grave'].update(self.graveyard) 
             #gotta figure out a way to update the window.
         window.close()
