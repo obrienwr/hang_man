@@ -16,6 +16,9 @@ class HangMan:
 		if '\n' in self._unfound_letters:
 			del self._unfound_letters[self._unfound_letters.index('\n')]
 
+	def fail_attempt(self):
+		self._attempts_left -= 1
+
 	def get_remaining_attempts(self):
 		return self._attempts_left
 
@@ -59,9 +62,6 @@ class HangMan:
 		placement = [i for i, let in enumerate(self._phrase) if let == letter]
 		if len(placement) > 0:
 			self.add_to_found_letters(letter)
-		else:
-			self.add_to_graveyard(letter)
-			self._attempts_left -= 1
 		return placement
 
 	def draw_self(self):
@@ -82,7 +82,8 @@ class HangMan:
 		return self._hints_left
 		
 	def add_to_found_letters(self, letter: str):
-		del self._unfound_letters[self._unfound_letters.index(letter.lower())]
+		if letter in self._unfound_letters:
+			del self._unfound_letters[self._unfound_letters.index(letter.lower())]
 		self._found_letters.append(letter)
 
 	def guess_phrase(self, guess: str) -> bool:
@@ -92,12 +93,14 @@ class HangMan:
 		Args:
 			guess (str): Guessed phrase by the user.
 		Returns:
-			bool: whether or not the two phrases match.
+			bool: whether the two phrases match.
 		"""
 		if guess.lower().strip() == self._phrase.lower().strip():
+			for letter in self._unfound_letters:
+				self._found_letters.append(letter)
 			self._unfound_letters = []
 			return True
-		self.add_to_graveyard(guess.lower().strip())
+		# self.add_to_graveyard(guess.lower().strip())
 		return False
 
 	def add_to_graveyard(self, letter):
