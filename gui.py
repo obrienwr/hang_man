@@ -128,5 +128,8 @@ class gui:
         return man.get_phrase_underscore()
 
 if __name__ == "__main__":
-    g = gui(int(sys.argv[1]))
+    if len(sys.argv) > 1:
+        g = gui(int(sys.argv[1]))
+    else:
+        g = gui(1)
     g.open_window()
