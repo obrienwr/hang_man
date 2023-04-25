@@ -1,10 +1,11 @@
 import PySimpleGUI as sg
 from hang_man import HangMan
+import sys
 # All the stuff inside your window.
 
 class gui:
 
-    def __init__(self):
+    def __init__(self, num_hang_men):
         # Need a specialized layout, graveyard, hangman, image_index, win, and phrase.
         # Need a overall hang man, attempts, hint, input box, graveyard
         self.pictures = ['images/pic.png','images/pic1.png','images/pic2.png','images/pic3.png','images/pic4.png','images/pic5.png','images/pic6.png', 'images/gameover.png']
@@ -12,7 +13,7 @@ class gui:
         self.font = ('Arial', 18)
         self.image_index = 0
 
-        self.num_hang_men = 4
+        self.num_hang_men = num_hang_men
         self.man = HangMan()
         self.hang_men = [HangMan() for _ in range(self.num_hang_men)]
         self.layouts = [[
@@ -127,5 +128,8 @@ class gui:
         return man.get_phrase_underscore()
 
 if __name__ == "__main__":
-    g = gui()
+    if len(sys.argv) > 1:
+        g = gui(int(sys.argv[1]))
+    else:
+        g = gui(1)
     g.open_window()
